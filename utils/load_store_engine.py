@@ -33,7 +33,7 @@ class load_store_engine():
                 workspace_cmd = str('--workspace=' + str(self.ws_dla))
                 _model = str(os.path.splitext(self.model_name)[0]) + '_b' + str(self.batch_size_dla)+'_ws'+str(self.ws_dla) + '_' + str(self.device) + str(device_id)
                 engine_CMD = str(
-                    './trtexec' + " " + model_base_path + " " + in_io_format + " " +'--allowGPUFallback'+ " " + precision_cmd + " " + " " + dla_cmd + " " +
+                    'trtexec' + " " + model_base_path + " " + in_io_format + " " +'--allowGPUFallback'+ " " + precision_cmd + " " + " " + dla_cmd + " " +
                     workspace_cmd)
             else:
                 self.device = 'gpu'
@@ -42,10 +42,9 @@ class load_store_engine():
                 _model = str(os.path.splitext(self.model_name)[0]) + '_b' + str(self.batch_size_gpu) + '_ws' + str(
                     self.ws_gpu) + '_' + str(self.device)
                 engine_CMD = str(
-                    './trtexec' + " " + model_base_path + " " + in_io_format + " " + precision_cmd + " " +workspace_cmd)
+                    'trtexec' + " " + model_base_path + " " + in_io_format + " " + precision_cmd + " " +workspace_cmd)
             cmd.append(engine_CMD)
             model.append(_model)
-            
         return cmd, model
 
     def check_downloaded_models(self, model_name, framework):
@@ -104,7 +103,8 @@ class load_store_engine():
     def save_engine(self, _cmds, _models):
         save_engine_path = str('--saveEngine=' + str(os.path.join(self.model_path, _models)) + '.engine')
         cmd = str(_cmds)+" "+str(save_engine_path)
-        trt_process = subprocess.Popen([cmd], cwd='/usr/src/tensorrt/bin/', shell=True, stdout=subprocess.DEVNULL,
+        print(">>>", cmd)
+        trt_process = subprocess.Popen([cmd], shell=True, stdout=subprocess.DEVNULL,
                                        stderr=subprocess.STDOUT)
         while trt_process.poll() == None:
             trt_process.poll()
@@ -118,7 +118,7 @@ class load_store_engine():
         load_engine_path = str('--loadEngine=' + str(os.path.join(self.model_path, _models)) + '.engine')
         avgruns_cmd = str('--avgRuns=100')+" "+'--duration=180'
         cmd = str(_cmds)+" "+ avgruns_cmd + " " + str(load_engine_path)
-        _trt_process = subprocess.Popen([cmd], cwd='/usr/src/tensorrt/bin/', shell=True, stdout=load_output,
+        _trt_process = subprocess.Popen([cmd], shell=True, stdout=load_output,
                                       stderr=subprocess.STDOUT)
         self.trt_process.append(_trt_process)
 

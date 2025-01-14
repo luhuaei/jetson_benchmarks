@@ -3,10 +3,11 @@ import os
 import subprocess
 import threading
 import time
+import pandas as pd
 
 # Class for load, store, remove engine
 class load_store_engine():
-    def __init__(self, model_path, model_name, batch_size_gpu, batch_size_dla, num_devices, precision, ws_gpu, ws_dla, model_input, model_output ):
+    def __init__(self, model_path, model_name, batch_size_gpu, batch_size_dla, num_devices, precision, ws_gpu, ws_dla, model_input, model_output, shapes ):
         self.model_path = model_path # Directory
         self.model_name = model_name # Model Name
         self.num_devices = num_devices # 3 if GPU+2DLA, 1 if GPU Only
@@ -17,14 +18,19 @@ class load_store_engine():
         self.ws_dla =ws_dla  # Workspace required for DLA
         self.model_input = model_input # Input name of the model
         self.model_output = model_output # Output name of the model
+        self.shapes = shapes
         self.trt_process = []
 
     def engine_gen(self):
         cmd = []
         model = []
         self.framework = os.path.splitext(self.model_name)[1]
-        precision_cmd = str('--' + str(self.precision))
-        in_io_format = str('--inputIOFormats=' + str(self.precision) + ':chw+chw4+chw32')
+        if self.precision == "none":
+            precision_cmd = " "
+            in_io_format = " "
+        else:
+            precision_cmd = str('--' + str(self.precision))
+            in_io_format = str('--inputIOFormats=' + str(self.precision) + ':chw+chw4+chw32')
         for device_id in range(0, self.num_devices):
             if device_id == 1 or device_id == 2:
                 self.device = 'dla'
@@ -88,6 +94,8 @@ class load_store_engine():
                 model_onnx = str(model_name_split+'-bs'+str(self.batch_size_gpu)+self.framework)
             if self.device == 'dla':
                 model_onnx = str(model_name_split+'-bs'+str(self.batch_size_dla)+self.framework)
+            if not pd.isna(self.shapes):
+                batch_cmd += str(" --shapes="+self.shapes)
             return str('--onnx=' + str(os.path.join(self.model_path, model_onnx))+ " " + batch_cmd)
         if self.framework == str('.uff'):
             _model_input = str('--uffInput='+str(self.model_input))

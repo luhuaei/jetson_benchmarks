@@ -18,3 +18,9 @@ pre_yolov8s:
 yolov8s:
 	sudo python3 benchmark.py --model_name yolov8s --csv_file_path benchmark_csv/orin-benchmarks.csv --model_dir benchmark_models --jetson_clocks --jetson_devkit orin --power_mode 0 --precision fp16 --plot
 	sudo python3 benchmark.py --model_name yolov8s --csv_file_path benchmark_csv/orin-benchmarks.csv --model_dir benchmark_models --jetson_clocks --jetson_devkit orin --power_mode 0 --precision int8 --plot
+
+zh-clip-text:
+	sudo python3 benchmark.py --model_name zh-clip-text --csv_file_path benchmark_csv/orin-benchmarks.csv --model_dir benchmark_models --jetson_clocks --precision none
+
+zh-clip-vision:
+	sudo python3 benchmark.py --model_name zh-clip-vision --csv_file_path benchmark_csv/orin-benchmarks.csv --model_dir benchmark_models --jetson_clocks --precision none

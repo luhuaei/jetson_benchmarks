@@ -21,7 +21,8 @@ class read_write_data():
         model_output = data['output'][read_index]
         batch_size_gpu = data['BatchSizeGPU'][read_index]
         batch_size_dla = int(data['BatchSizeDLA'][read_index])
-        return model_name, self.framework, self.num_devices, ws_gpu, ws_dla, model_input, model_output, batch_size_gpu, batch_size_dla
+        shapes = data['shapes'][read_index]
+        return model_name, self.framework, self.num_devices, ws_gpu, ws_dla, model_input, model_output, batch_size_gpu, batch_size_dla, shapes
     def __len__(self):
         return len(pd.read_csv(self.csv_file_path))
     def framework2ext(self):

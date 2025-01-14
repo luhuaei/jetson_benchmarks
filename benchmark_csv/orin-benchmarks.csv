@@ -8,3 +8,4 @@ yolov3-tiny-416,onnx,3,32,32,2048,0,NA,NA,https://www.dropbox.com/s/bb9k1vh4fumv
 ResNet50_224x224,caffe,3,32,32,2048,1024,NA,prob,https://www.dropbox.com/s/xut47um2g509m5o/ResNet50_224x224.prototxt
 mobilenet_v1_ssd,caffe,3,32,32,2048,1024,NA,conv17_2_mbox_loc:conv17_2_mbox_conf:conv16_2_mbox_loc:conv16_2_mbox_conf:conv15_2_mbox_loc:conv15_2_mbox_conf:conv14_2_mbox_loc:conv14_2_mbox_conf:conv13_mbox_loc:conv13_mbox_conf:conv11_mbox_loc:conv11_mbox_conf,https://www.dropbox.com/s/qn4mxjillbjimk1/mobilenet_v1_ssd.prototxt
 ssd_resnet34_1200x1200,caffe,3,1,1,2048,2048,NA,conf_out,https://www.dropbox.com/s/2ei1gpalt0aer3i/ssd_resnet34_1200x1200.prototxt
+yolov8s,onnx,3,32,32,2048,0,NA,NA,https://xxxxx-fake.com

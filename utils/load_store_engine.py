@@ -15,7 +15,7 @@ class load_store_engine():
         self.batch_size_dla = batch_size_dla # Batch Size for DLA
         self.ws_gpu = ws_gpu # Workspace required for GPU
         self.ws_dla =ws_dla  # Workspace required for DLA
-        self. model_input = model_input # Input name of the model
+        self.model_input = model_input # Input name of the model
         self.model_output = model_output # Output name of the model
         self.trt_process = []
 
@@ -148,11 +148,8 @@ class load_store_engine():
 
     def remove_engine(self, models):
         _engine_path = str(str(os.path.join(self.model_path, models)) + '.engine')
-        _txtout_path = str(str(os.path.join(self.model_path, models)) + '.txt')
         if os.path.isfile(_engine_path):
             os.remove(_engine_path)
-        if os.path.isfile(_txtout_path):
-            os.remove(_txtout_path)
 
     def remove_all(self, models):
         for e_id in range(0, self.num_devices):

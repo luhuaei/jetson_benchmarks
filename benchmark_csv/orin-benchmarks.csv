@@ -11,3 +11,5 @@ ssd_resnet34_1200x1200,caffe,3,1,1,2048,2048,NA,conf_out,NA,https://www.dropbox.
 yolov8s,onnx,3,32,32,2048,0,NA,NA,NA,https://xxxxx-fake.com
 zh-clip-vit-roberta-large-patch14-text,onnx,1,1,1,2048,0,NA,NA,"input_ids:1x512,attention_mask:1x512",https://xxxxx-fake.com
 zh-clip-vit-roberta-large-patch14-vision,onnx,1,1,1,2048,0,NA,NA,"pixel_values:1x3x224x224",https://xxxxx-fake.com
+dinov2,onnx,1,1,1,2048,0,NA,NA,"pixel_values:32x3x224x224",https://xxxxx-fake.com
+
